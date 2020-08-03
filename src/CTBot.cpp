@@ -124,8 +124,8 @@ String CTBot::sendCommand(String command, String parameters)
 	if (m_statusPin != CTBOT_DISABLE_STATUS_PIN)
 		digitalWrite(m_statusPin, !digitalRead(m_statusPin));     // set pin to the opposite state
 
-//	Serial.printf("--->send(prechk) : Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
-	Serial.printf("--->sendCommand  : Free heap memory: %lu", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+//	Serial.printf("--->send(prechk) : Free heap memory: %u\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+	Serial.printf("--->sendCommand  : Free heap memory: %u", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
 
 #if CTBOT_CHECK_JSON == 0
 	return(telegramServer.readString());
@@ -163,7 +163,7 @@ String CTBot::sendCommand(String command, String parameters)
 
 					// JSON ended, close connection and return JSON
 
-					Serial.printf("/%lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+					Serial.printf("/%u\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
 
 					telegramServer.flush();
 					telegramServer.stop();
@@ -406,7 +406,7 @@ CTBotMessageType CTBot::getNewMessage(TBMessage &message) {
 		message.chatInstance = root["result"][0]["callback_query"]["chat_instance"].as<String>();
 		message.messageType = CTBotMessageQuery;
 
-		Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+		Serial.printf("--->getNewMessage: Free heap memory: %u\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
 
 		return CTBotMessageQuery;
 	}
@@ -431,7 +431,7 @@ CTBotMessageType CTBot::getNewMessage(TBMessage &message) {
 			message.text = root["result"][0]["message"]["text"].as<String>();
 			message.messageType = CTBotMessageText;
 
-			Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+			Serial.printf("--->getNewMessage: Free heap memory: %u\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
 
 			return CTBotMessageText;
 		}
@@ -441,7 +441,7 @@ CTBotMessageType CTBot::getNewMessage(TBMessage &message) {
 			message.location.latitude = root["result"][0]["message"]["location"]["latitude"].as<float>();
 			message.messageType = CTBotMessageLocation;
 
-			Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+			Serial.printf("--->getNewMessage: Free heap memory: %u\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
 
 			return CTBotMessageLocation;
 		}
@@ -454,7 +454,7 @@ CTBotMessageType CTBot::getNewMessage(TBMessage &message) {
 			message.contact.vCard = root["result"][0]["message"]["contact"]["vcard"].as<String>();
 			message.messageType = CTBotMessageContact;
 
-			Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+			Serial.printf("--->getNewMessage: Free heap memory: %u\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
 
 			return CTBotMessageContact;
 		}
