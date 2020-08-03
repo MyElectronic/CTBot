@@ -108,6 +108,8 @@ String CTBotSecureConnection::send(const String& message) const
 	return telegramServer.readString();
 #else
 
+	Serial.printf("--->send         : Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+
 	String response("");
 	int curlyCounter = -1; // count the open/closed curly bracket for identify the json
 	bool skipCounter = false; // for filtering curly bracket inside a text message

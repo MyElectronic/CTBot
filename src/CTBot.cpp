@@ -223,6 +223,9 @@ CTBotMessageType CTBot::getNewMessage(TBMessage& message) {
 		message.callbackQueryData = root["result"][0]["callback_query"]["data"].as<String>();
 		message.chatInstance      = root["result"][0]["callback_query"]["chat_instance"].as<String>();
 		message.messageType       = CTBotMessageQuery;
+
+		Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+
 		return CTBotMessageQuery;
 	}
 	else if (root["result"][0]["message"]["message_id"]) {
@@ -245,6 +248,9 @@ CTBotMessageType CTBot::getNewMessage(TBMessage& message) {
 			// this is a text message
 		    message.text        = root["result"][0]["message"]["text"].as<String>();		    
 			message.messageType = CTBotMessageText;
+
+			Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+
 			return CTBotMessageText;
 		}
 		else if (root["result"][0]["message"]["location"]) {
@@ -252,6 +258,9 @@ CTBotMessageType CTBot::getNewMessage(TBMessage& message) {
 			message.location.longitude = root["result"][0]["message"]["location"]["longitude"].as<float>();
 			message.location.latitude  = root["result"][0]["message"]["location"]["latitude"].as<float>();
 			message.messageType = CTBotMessageLocation;
+
+			Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+
 			return CTBotMessageLocation;
 		}
 		else if (root["result"][0]["message"]["contact"]) {
@@ -262,6 +271,9 @@ CTBotMessageType CTBot::getNewMessage(TBMessage& message) {
 			message.contact.phoneNumber = root["result"][0]["message"]["contact"]["phone_number"].as<String>();
 			message.contact.vCard       = root["result"][0]["message"]["contact"]["vcard"].as<String>();
 			message.messageType = CTBotMessageContact;
+
+			Serial.printf("--->getNewMessage: Free heap memory: %lu\n", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
+
 			return CTBotMessageContact;
 		}
 	}
