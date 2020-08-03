@@ -1,12 +1,13 @@
 #include "CTBotInlineKeyboard.h"
 #include "Utilities.h"
 
-void CTBotInlineKeyboard::initialize()
+//check ok
+void CTBotInlineKeyboard::initialize(void)
 {
 #if ARDUINOJSON_VERSION_MAJOR == 5
 	JsonObject& root = m_jsonBuffer.createObject();
-	JsonArray&  rows = root.createNestedArray((String)"inline_keyboard");
-	JsonArray&  buttons = rows.createNestedArray();
+	JsonArray& rows = root.createNestedArray((String)"inline_keyboard");
+	JsonArray& buttons = rows.createNestedArray();
 	m_root = &root;
 	m_rows = &rows;
 	m_buttons = &buttons;
@@ -15,10 +16,10 @@ void CTBotInlineKeyboard::initialize()
 	m_rows = m_root->createNestedArray("inline_keyboard");
 	m_buttons = m_rows.createNestedArray();
 #endif
-
 	m_isRowEmpty = true;
 }
 
+//check ok
 CTBotInlineKeyboard::CTBotInlineKeyboard()
 {
 #if ARDUINOJSON_VERSION_MAJOR == 6
@@ -26,17 +27,19 @@ CTBotInlineKeyboard::CTBotInlineKeyboard()
 	if (!m_root)
 		serialLog("CTBotInlineKeyboard: Unable to allocate JsonDocument memory.\n");
 #endif
-
 	initialize();
 }
 
-CTBotInlineKeyboard::~CTBotInlineKeyboard() {
+//check ok
+CTBotInlineKeyboard::~CTBotInlineKeyboard()
+{
 #if ARDUINOJSON_VERSION_MAJOR == 6
 	delete m_root;
 #endif
-};
+}
 
-void CTBotInlineKeyboard::flushData()
+//check ok
+void CTBotInlineKeyboard::flushData(void)
 {
 #if ARDUINOJSON_VERSION_MAJOR == 5
 	m_jsonBuffer.clear();
@@ -44,17 +47,17 @@ void CTBotInlineKeyboard::flushData()
 #if ARDUINOJSON_VERSION_MAJOR == 6
 	m_root->clear();
 #endif
-
 	initialize();
 }
 
-bool CTBotInlineKeyboard::addRow()
+//check ok
+bool CTBotInlineKeyboard::addRow(void)
 {
 	if (m_isRowEmpty)
-		return false;
+		return(false);
 
 #if ARDUINOJSON_VERSION_MAJOR == 5
-	JsonArray&  buttons = m_rows->createNestedArray();
+	JsonArray& buttons = m_rows->createNestedArray();
 	m_buttons = &buttons;
 #endif
 #if ARDUINOJSON_VERSION_MAJOR == 6
@@ -65,9 +68,10 @@ bool CTBotInlineKeyboard::addRow()
 	return true;
 }
 
+//check ok
 bool CTBotInlineKeyboard::addButton(String text, String command, CTBotInlineKeyboardButtonType buttonType)
 {
-	if ((buttonType != CTBotKeyboardButtonURL) && 
+	if ((buttonType != CTBotKeyboardButtonURL) &&
 		(buttonType != CTBotKeyboardButtonQuery))
 		return false;
 
@@ -80,16 +84,17 @@ bool CTBotInlineKeyboard::addButton(String text, String command, CTBotInlineKeyb
 
 	text = URLEncodeMessage(text);
 	button["text"] = text;
-	if (CTBotKeyboardButtonURL == buttonType) 
+	if (CTBotKeyboardButtonURL == buttonType)
 		button["url"] = command;
-	else if (CTBotKeyboardButtonQuery == buttonType) 
+	else if (CTBotKeyboardButtonQuery == buttonType)
 		button["callback_data"] = command;
 	if (m_isRowEmpty)
 		m_isRowEmpty = false;
 	return true;
 }
 
-String CTBotInlineKeyboard::getJSON() const
+//check ok
+String CTBotInlineKeyboard::getJSON(void)
 {
 	String serialized;
 

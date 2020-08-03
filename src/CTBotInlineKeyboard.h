@@ -3,12 +3,12 @@
 #define CTBOT_INLINE_KEYBOARD
 
 // for using int_64 data
-#define ARDUINOJSON_USE_LONG_LONG  1
+#define ARDUINOJSON_USE_LONG_LONG 1 
 // for decoding UTF8/UNICODE
 #define ARDUINOJSON_DECODE_UNICODE 1 
 #include <ArduinoJson.h>
 #include <Arduino.h>
-#include "CTBotDefines.h"
+
 
 enum CTBotInlineKeyboardButtonType {
 	CTBotKeyboardButtonURL    = 1,
@@ -20,16 +20,15 @@ class CTBotInlineKeyboard
 private:
 #if ARDUINOJSON_VERSION_MAJOR == 5
 	DynamicJsonBuffer m_jsonBuffer;
-	JsonObject *m_root;
-	JsonArray  *m_rows;
-	JsonArray  *m_buttons;
+	JsonObject* m_root;
+	JsonArray* m_rows;
+	JsonArray* m_buttons;
 #endif
 #if ARDUINOJSON_VERSION_MAJOR == 6
-	DynamicJsonDocument *m_root;
+	DynamicJsonDocument* m_root;
 	JsonArray m_rows;
 	JsonArray m_buttons;
 #endif
-
 	bool m_isRowEmpty;
 
 	void initialize(void);
@@ -59,7 +58,7 @@ public:
 	// Useful for CTBot::sendMessage()
 	// returns:
 	//   the JSON of the inline keyboard 
-	String getJSON(void) const;
+	String getJSON(void);
 };
 
 

@@ -50,17 +50,19 @@ bool unicodeToUTF8(String unicode, String &utf8) {
 }
 
 String int64ToAscii(int64_t value) {
-	String buffer;
+	String buffer = "";
 	int64_t temp;
+	uint8_t rest;
+	char ascii;
 	if (value < 0)
 		temp = -value;
 	else
 		temp = value;
 
 	while (temp != 0) {
-		uint8_t rest = temp % 10;
+		rest = temp % 10;
 		temp = (temp - rest) / 10;
-		char ascii = 0x30 + rest;
+		ascii = 0x30 + rest;
 		buffer = ascii + buffer;
 	}
 	if (value < 0)
@@ -69,10 +71,11 @@ String int64ToAscii(int64_t value) {
 }
 
 String URLEncodeMessage(String message) {
-	String encodedMessage("");
+	String encodedMessage = "";
 	char buffer[4];
 	buffer[0] = '%';
 	buffer[3] = 0x00;
+	uint8_t temp;
 	uint16_t i;
 	for (i = 0; i < message.length(); i++) {
 		if (((message[i] >= 0x30) && (message[i] <= 0x39)) || // numbers
@@ -94,5 +97,6 @@ String URLEncodeMessage(String message) {
 			encodedMessage += (String)buffer;
 		}
 	}
-	return encodedMessage;
+	return encodedMessage ;
 }
+

@@ -3,19 +3,17 @@
 #define CTBOT_REPLY_KEYBOARD
 
 // for using int_64 data
-#define ARDUINOJSON_USE_LONG_LONG  1
+#define ARDUINOJSON_USE_LONG_LONG 1 
 // for decoding UTF8/UNICODE
 #define ARDUINOJSON_DECODE_UNICODE 1 
 #include <ArduinoJson.h>
 #include <Arduino.h>
-#include "CTBotDefines.h"
 
 enum CTBotReplyKeyboardButtonType {
 	CTBotKeyboardButtonSimple   = 1,
 	CTBotKeyboardButtonContact  = 2,
 	CTBotKeyboardButtonLocation = 3
 };
-
 
 class CTBotReplyKeyboard
 {
@@ -70,7 +68,7 @@ public:
 	// Useful for CTBot::sendMessage()
 	// returns:
 	//   the JSON of the inline keyboard 
-	String getJSON(void) const;
+	String getJSON(void);
 };
 
 #endif
