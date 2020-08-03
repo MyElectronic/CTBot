@@ -1,6 +1,6 @@
 # CTBot
 
-Branch: Master - [![Build Status](https://travis-ci.org/shurillu/CTBot.svg?branch=master)](https://travis-ci.org/shurillu/CTBot)
+Branch: Master - [![Build Status](https://travis-ci.org/shurillu/CTBot.svg?branch=V1_ESP32_JSON6_Support)](https://travis-ci.org/shurillu/CTBot)
 
 
 ___
