@@ -52,7 +52,7 @@ public:
 	//            callback query data (if buttonType is CTBotKeyboardButtonQuery)
 	// return:
 	//    true if no error occurred
-	bool addButton(String text, String command, CTBotInlineKeyboardButtonType buttonType);
+	bool addButton(const String& text, const String& command, CTBotInlineKeyboardButtonType buttonType);
 
 	// generate a string that contains the inline keyboard formatted in a JSON structure. 
 	// Useful for CTBot::sendMessage()

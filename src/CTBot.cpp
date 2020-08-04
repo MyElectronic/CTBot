@@ -58,7 +58,7 @@ CTBot::~CTBot() {
 }
 
 //check ok
-String CTBot::sendCommand(String command, String parameters)
+String CTBot::sendCommand(const String& command, const String& parameters)
 {
 
 #if defined(ARDUINO_ARCH_ESP8266) && CTBOT_USE_FINGERPRINT == 0 // ESP8266 no HTTPS verification
@@ -128,6 +128,7 @@ String CTBot::sendCommand(String command, String parameters)
 	Serial.printf("--->sendCommand  : Free heap memory: %u", ESP.getFreeHeap()); // FOR_MEMORY_TEST ----------------------------
 
 #if CTBOT_CHECK_JSON == 0
+	Serial.printf("\n"); // FOR_MEMORY_TEST ----------------------------
 	return(telegramServer.readString());
 #else
 
@@ -255,7 +256,7 @@ void CTBot::setStatusPin(int8_t pin)
 }
 
 //check ok
-void CTBot::setTelegramToken(String token)
+void CTBot::setTelegramToken(const String& token)
 {	m_token = token;}
 
 bool CTBot::testConnection(void){
@@ -464,7 +465,7 @@ CTBotMessageType CTBot::getNewMessage(TBMessage &message) {
 }
 
 //check ok
-bool CTBot::sendMessage(int64_t id, String message, String keyboard)
+bool CTBot::sendMessage(int64_t id, const String& message, const String& keyboard)
 {
 	String parameters;
 	String strID;
@@ -474,9 +475,7 @@ bool CTBot::sendMessage(int64_t id, String message, String keyboard)
 
 	strID = int64ToAscii(id);
 
-	message = URLEncodeMessage(message); 
-
-	parameters = (String)"?chat_id=" + strID + (String)"&text=" + message;
+	parameters = (String)"?chat_id=" + strID + (String)"&text=" + URLEncodeMessage(message);
 
 	if (keyboard.length() != 0)
 		parameters += (String)"&reply_markup=" + keyboard;
@@ -529,17 +528,17 @@ bool CTBot::sendMessage(int64_t id, String message, String keyboard)
 }
 
 //check ok
-bool CTBot::sendMessage(int64_t id, String message, CTBotInlineKeyboard &keyboard) {
+bool CTBot::sendMessage(int64_t id, const String& message, CTBotInlineKeyboard &keyboard) {
 	return(sendMessage(id, message, keyboard.getJSON()));
 }
 
 //check ok
-bool CTBot::sendMessage(int64_t id, String message, CTBotReplyKeyboard &keyboard) {
+bool CTBot::sendMessage(int64_t id, const String& message, CTBotReplyKeyboard &keyboard) {
 	return(sendMessage(id, message, keyboard.getJSON()));
 }
 
 //check ok
-bool CTBot::endQuery(String queryID, String message, bool alertMode)
+bool CTBot::endQuery(const String& queryID, const String& message, bool alertMode)
 {
 	String parameters;
 
@@ -549,11 +548,10 @@ bool CTBot::endQuery(String queryID, String message, bool alertMode)
 	parameters = (String)"?callback_query_id=" + queryID;
 
 	if (message.length() != 0) {
-		message = URLEncodeMessage(message);
 		if (alertMode)
-			parameters += (String)"&text=" + message + (String)"&show_alert=true";
+			parameters += (String)"&text=" + URLEncodeMessage(message) + (String)"&show_alert=true";
 		else
-			parameters += (String)"&text=" + message + (String)"&show_alert=false";
+			parameters += (String)"&text=" + URLEncodeMessage(message) + (String)"&show_alert=false";
 	}
 
 #if ARDUINOJSON_VERSION_MAJOR == 5
@@ -604,7 +602,7 @@ bool CTBot::endQuery(String queryID, String message, bool alertMode)
 }
 
 //check ok
-bool CTBot::removeReplyKeyboard(int64_t id, String message, bool selective)
+bool CTBot::removeReplyKeyboard(int64_t id, const String& message, bool selective)
 {
 	String command;
 
@@ -639,7 +637,7 @@ void CTBot::setFingerprint(const uint8_t * newFingerprint)
 }
 
 //check ok
-bool CTBot::setIP(String ip, String gateway, String subnetMask, String dns1, String dns2){
+bool CTBot::setIP(const String& ip, const String& gateway, const String& subnetMask, const String& dns1, const String& dns2){
 	IPAddress IP, SN, GW, DNS1, DNS2;
 
 	if (!IP.fromString(ip)) {
@@ -675,7 +673,7 @@ bool CTBot::setIP(String ip, String gateway, String subnetMask, String dns1, Str
 }
 
 //check ok 
-bool CTBot::wifiConnect(String ssid, String password)
+bool CTBot::wifiConnect(const String& ssid, const String& password)
 {
 	// attempt to connect to Wifi network:
 	int tries = 0;

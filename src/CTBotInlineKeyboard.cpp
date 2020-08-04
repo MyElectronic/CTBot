@@ -69,7 +69,7 @@ bool CTBotInlineKeyboard::addRow(void)
 }
 
 //check ok
-bool CTBotInlineKeyboard::addButton(String text, String command, CTBotInlineKeyboardButtonType buttonType)
+bool CTBotInlineKeyboard::addButton(const String& text, const String& command, CTBotInlineKeyboardButtonType buttonType)
 {
 	if ((buttonType != CTBotKeyboardButtonURL) &&
 		(buttonType != CTBotKeyboardButtonQuery))
@@ -82,8 +82,7 @@ bool CTBotInlineKeyboard::addButton(String text, String command, CTBotInlineKeyb
 	JsonObject button = m_buttons.createNestedObject();
 #endif
 
-	text = URLEncodeMessage(text);
-	button["text"] = text;
+	button["text"] = URLEncodeMessage(text);
 	if (CTBotKeyboardButtonURL == buttonType)
 		button["url"] = command;
 	else if (CTBotKeyboardButtonQuery == buttonType)

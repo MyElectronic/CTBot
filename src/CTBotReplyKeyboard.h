@@ -51,7 +51,7 @@ public:
 	//   buttonType: the type of the button (simple text, contact request, location request)
 	// return:
 	//    true if no error occurred
-	bool addButton(String text, CTBotReplyKeyboardButtonType buttonType = CTBotKeyboardButtonSimple);
+	bool addButton(const String& text, CTBotReplyKeyboardButtonType buttonType = CTBotKeyboardButtonSimple);
 
 	// enable reply keyboard autoresizing (default: the same size of the standard keyboard)
 	void enableResize(void);

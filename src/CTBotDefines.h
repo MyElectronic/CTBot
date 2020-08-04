@@ -2,17 +2,6 @@
 #ifndef CTBOTDEFINES
 #define CTBOTDEFINES
 
-//#include <stdint.h>
-
-/*
-#ifndef CTBOT_DEBUG_MODE
-#define CTBOT_DEBUG_MODE               0 // enable debugmode -> print debug data on the Serial
-										 // Zero -> debug disabled
-#endif
-*/
-
-
-
 #define CTBOT_DEBUG_MODE                 0 // enable debugmode -> print debug data on the Serial
 										   // Zero -> debug disabled
 #define CTBOT_STATION_MODE               1 // Station mode -> Set the mode to WIFI_STA (no access point)
@@ -36,6 +25,9 @@
 // Platform specific defines: ESP8266 ----------------------------------------------------------------------------
 #define CTBOT_ESP8266_TCP_BUFFER_SIZE  512 // tx/rx wifiClientSecure buffer size for Telegram server connections
 										   // only for ESP8266
+
+
+#define FSTR(x) (const char*)F(x)
 
 
 #endif

@@ -26,7 +26,7 @@ public:
 	//   dns2      : the optional second DNS
 	// returns
 	//   true if no error occurred
-	bool setIP(String ip, String gateway, String subnetMask, String dns1 = "", String dns2 = "");
+	bool setIP(const String& ip, const String& gateway, const String& subnetMask, const String& dns1 = "", const String& dns2 = "");
 
 	// connect to a wifi network
 	// params
@@ -34,12 +34,12 @@ public:
 	//   password: the optional password
 	// returns
 	//   true if no error occurred
-	bool wifiConnect(String ssid, String password = "");
+	bool wifiConnect(const String& ssid, const String& password = "");
 
 	// set the telegram token
 	// params
 	//   token: the telegram token
-	void setTelegramToken(String token);
+	void setTelegramToken(const String& token);
 
 	// use the URL style address "api.telegram.org" or the fixed IP address "149.154.167.198"
 	// for all communication with the telegram server
@@ -94,9 +94,9 @@ public:
 	//             (in json format or using the CTBotInlineKeyboard/CTBotReplyKeyboard class helper)
 	// returns
 	//   true if no error occurred
-	bool sendMessage(int64_t id, String message, String keyboard = "");
-	bool sendMessage(int64_t id, String message, CTBotInlineKeyboard &keyboard);
-	bool sendMessage(int64_t id, String message, CTBotReplyKeyboard  &keyboard);
+	bool sendMessage(int64_t id, const String& message, const String& keyboard = "");
+	bool sendMessage(int64_t id, const String& message, CTBotInlineKeyboard &keyboard);
+	bool sendMessage(int64_t id, const String& message, CTBotReplyKeyboard  &keyboard);
 
 	// terminate a query started by pressing an inlineKeyboard button. The steps are:
 	// 1) send a message with an inline keyboard
@@ -107,7 +107,7 @@ public:
 	//   message  : an optional message
 	//   alertMode: false -> a simply popup message
 	//              true --> an alert message with ok button
-	bool endQuery(String queryID, String message = "", bool alertMode = false);
+	bool endQuery(const String& queryID, const String& message = "", bool alertMode = false);
 
 	// remove an active reply keyboard for a selected user, sending a message
 	// params:
@@ -118,7 +118,7 @@ public:
 	//                       2) if the bot's message is a reply (has reply_to_message_id), sender of the original message
 	// return:
 	//   true if no error occurred
-	bool removeReplyKeyboard(int64_t id, String message, bool selective = false);
+	bool removeReplyKeyboard(int64_t id, const String& message, bool selective = false);
 
 	// set the new Telegram API server fingerprint overwriting the default one.
 	// It can be obtained by this service: https://www.grc.com/fingerprints.htm
@@ -144,7 +144,7 @@ private:
 	// returns
 	//   an empty string if error
 	//   a string containing the Telegram JSON response
-	String sendCommand(String command, String parameters = "");
+	String sendCommand(const String& command, const String& parameters = "");
 
 	// convert an UNICODE string to UTF8 encoded string
 	// params

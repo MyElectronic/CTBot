@@ -72,7 +72,7 @@ bool CTBotReplyKeyboard::addRow(void)
 }
 
 //check ok
-bool CTBotReplyKeyboard::addButton(String text, CTBotReplyKeyboardButtonType buttonType)
+bool CTBotReplyKeyboard::addButton(const String& text, CTBotReplyKeyboardButtonType buttonType)
 {
 	if ((buttonType != CTBotKeyboardButtonSimple) &&
 		(buttonType != CTBotKeyboardButtonContact) &&
@@ -86,8 +86,7 @@ bool CTBotReplyKeyboard::addButton(String text, CTBotReplyKeyboardButtonType but
 	JsonObject button = m_buttons.createNestedObject();
 #endif
 
-	text = URLEncodeMessage(text);
-	button["text"] = text;
+	button["text"] = URLEncodeMessage(text);
 
 	if (CTBotKeyboardButtonContact == buttonType)
 		button["request_contact"] = true;
